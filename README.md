@@ -104,7 +104,7 @@ Each client will load its assigned data partition, train a local CNN model, and 
 
 ### 5.1. Server Output
 
-```
+```bash
 Log: Starting Flower server...
 INFO flwr  Starting server on 127.0.0.1:8081
 INFO flwr  Round 1: fit (3 clients)
@@ -118,7 +118,7 @@ INFO flwr  Final aggregated metrics: {'accuracy': 0.45}
 
 ### 5.2. Client Output
 
-```
+```bash
 Client starting with ID 0...
  Using device: cpu
  Loading data for client 0...
@@ -143,5 +143,5 @@ This implementation demonstrates the core principles of Federated Learning using
 ---
 
 **Author:** Negin Ebrahimi  
-**Purpose:** Academic Assessment Project  
+**Purpose:**  Assessment Project  
 **Date:** 2025
