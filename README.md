@@ -62,6 +62,12 @@ scikit-learn
 
 To initiate the Federated Learning server, execute the following command from the root directory:
 
+First activate the venv
+```bash
+venv\Scripts\activate          # On Windows
+# source venv/bin/activate      # On macOS/Linux
+```
+
 ```bash
 python federated/server.py
 ```
@@ -70,9 +76,43 @@ python federated/server.py
 
 In separate terminal windows, start three clients as follows:
 
+#### Client #1
+
+**It is important to run all the clients**
+
+Redirect the project folder
+
+First activate the venv
+```bash
+venv\Scripts\activate          # On Windows
+# source venv/bin/activate      # On macOS/Linux
+```
+and then run the client #1
 ```bash
 python federated/client.py 0
+```
+#### Client #2
+Redirect the project folder
+
+First activate the venv
+```bash
+venv\Scripts\activate          # On Windows
+# source venv/bin/activate      # On macOS/Linux
+```
+and then run the client #2
+```bash
 python federated/client.py 1
+```
+#### Client #3
+Redirect the project folder
+
+First activate the venv
+```bash
+venv\Scripts\activate          # On Windows
+# source venv/bin/activate      # On macOS/Linux
+```
+and then run the client #3
+```bash
 python federated/client.py 2
 ```
 
@@ -127,18 +167,26 @@ INFO flwr  Final aggregated metrics: {'accuracy': 0.45}
 
 ### 5.2. Client Output
 
+At the first run, the client starts to download the dataset
+
 ```bash
 Client starting with ID 0...
  Using device: cpu
  Loading data for client 0...
+100%|███████████████████████████████████████████████████████████████████████████████| 170M/170M [00:08<00:00, 20.7MB/s]
+```
+
+and it will be continued by this
+```bash
  Data loaded.
  Train samples: 16666, Test samples: 10000
  Initializing client...
  Connecting to server...
-INFO flwr  Connected to server at 127.0.0.1:8081
-INFO flwr  Starting training round 1
-✅ Connected successfully!
- Client finished.
+ #### some deprication warning
+ 
+INFO :
+INFO :      Received: get_parameters message de6f3cce-9d80-4007-bc9a-208077d43b42
+INFO :      Sent reply
 ```
 
 Outputs for clients `1` and `2` are similar, with unique subsets of training data.
