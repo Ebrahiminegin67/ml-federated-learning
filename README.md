@@ -6,26 +6,8 @@ This project demonstrates a Federated Learning (FL) framework using the Flower (
 
 ## Table of Contents
 
-- [Federated Learning with Flower (CIFAR-10)](#federated-learning-with-flower-cifar-10)
-  - [Table of Contents](#table-of-contents)
-  - [1. Overview](#1-overview)
-  - [2. Requirements and Installation](#2-requirements-and-installation)
-    - [2.1 Clone the Project](#21-clone-the-project)
-    - [2.2. Virtual Environment Setup](#22-virtual-environment-setup)
-    - [2.3. Install Dependencies](#23-install-dependencies)
-  - [3. How to Execute the Program](#3-how-to-execute-the-program)
-    - [3.1. Start the Server](#31-start-the-server)
-    - [3.2. Start the Clients](#32-start-the-clients)
-      - [Client #1](#client-1)
-      - [Client #2](#client-2)
-      - [Client #3](#client-3)
-  - [4. Project Structure and Code Description](#4-project-structure-and-code-description)
-    - [4.1. Server Component (`server.py`)](#41-server-component-serverpy)
-    - [4.2. Client Component (`client.py`)](#42-client-component-clientpy)
-  - [5. Expected Output (First Run)](#5-expected-output-first-run)
-    - [5.1. Server Output](#51-server-output)
-    - [5.2. Client Output](#52-client-output)
-  - [6. Conclusion](#6-conclusion)
+
+
 
 ---
 
