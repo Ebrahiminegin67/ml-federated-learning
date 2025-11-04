@@ -16,7 +16,16 @@ The implementation consists of:
 
 ## 2. Requirements and Installation
 
-### 2.1. Virtual Environment Setup
+### 2.1 Clone the Project
+```bash
+git clone https://github.com/Ebrahiminegin67/ml-federated-learning.git
+```
+Redirect to the folder
+```bash
+cd ml-federated-learning
+```
+
+### 2.2. Virtual Environment Setup
 
 It is recommended to use a Python virtual environment for isolated dependency management.
 
@@ -26,7 +35,7 @@ venv\Scripts\activate          # On Windows
 # source venv/bin/activate      # On macOS/Linux
 ```
 
-### 2.2. Install Dependencies
+### 2.3. Install Dependencies
 
 All dependencies required to run this project are listed in `requirements.txt` and can be installed using:
 
