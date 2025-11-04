@@ -4,8 +4,8 @@ This project demonstrates a Federated Learning (FL) framework using the Flower (
 
 ---
 
-## Table of Contents
-
+## Table of Contents 
+<!-- no toc -->
 1. [Overview](#1-overview)  
 2. [Requirements and Installation](#2-requirements-and-installation)  
 3. [How to Execute the Program](#3-how-to-execute-the-program)  
