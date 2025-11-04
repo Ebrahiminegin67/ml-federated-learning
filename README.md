@@ -76,9 +76,11 @@ python federated/server.py
 
 In separate terminal windows, start three clients as follows:
 
+**It is highly important to run all the clients**
+
 #### Client #1
 
-**It is important to run all the clients**
+
 
 Redirect the project folder
 
