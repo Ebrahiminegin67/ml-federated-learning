@@ -93,7 +93,7 @@ if __name__ == "__main__":
     print(f" Client starting with ID {client_id}...")
     try:
         start_client(client_id=client_id, server_address="127.0.0.1:8081", num_clients=3)
-        print("✅ Connected successfully!")
+        print("Connected successfully!")
     except Exception as e:
-        print("❌ Connection failed:", e)
+        print("Connection failed:", e)
 

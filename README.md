@@ -156,15 +156,41 @@ Each client will load its assigned data partition, train a local CNN model, and 
 ### 5.1. Server Output
 
 ```bash
-Log: Starting Flower server...
-INFO flwr  Starting server on 127.0.0.1:8081
-INFO flwr  Round 1: fit (3 clients)
-INFO flwr  Round 1: evaluate
-INFO flwr  Round 2: fit (3 clients)
-INFO flwr  Round 2: evaluate
-INFO flwr  Round 3: fit (3 clients)
-INFO flwr  Round 3: evaluate
-INFO flwr  Final aggregated metrics: {'accuracy': 0.45}
+INFO :      Starting Flower server, config: num_rounds=3, no round_timeout
+INFO :      Flower ECE: gRPC server running (3 rounds), SSL is disabled
+INFO :      [INIT]
+INFO :      Requesting initial parameters from one random client
+INFO :      Received initial parameters from one random client
+INFO :      Starting evaluation of initial global parameters
+INFO :      Evaluation returned no results (`None`)
+INFO :
+INFO :      [ROUND 1]
+INFO :      configure_fit: strategy sampled 3 clients (out of 3)
+INFO :      aggregate_fit: received 3 results and 0 failures
+WARNING :   No fit_metrics_aggregation_fn provided
+INFO :      configure_evaluate: strategy sampled 3 clients (out of 3)
+INFO :      aggregate_evaluate: received 3 results and 0 failures
+INFO :
+INFO :      [ROUND 2]
+INFO :      configure_fit: strategy sampled 3 clients (out of 3)
+INFO :      aggregate_fit: received 3 results and 0 failures
+INFO :      configure_evaluate: strategy sampled 3 clients (out of 3)
+INFO :      aggregate_evaluate: received 3 results and 0 failures
+INFO :
+INFO :      [ROUND 3]
+INFO :      configure_fit: strategy sampled 3 clients (out of 3)
+INFO :      aggregate_fit: received 3 results and 0 failures
+INFO :      configure_evaluate: strategy sampled 3 clients (out of 3)
+INFO :      aggregate_evaluate: received 3 results and 0 failures
+INFO :
+INFO :      [SUMMARY]
+INFO :      Run finished 3 round(s) in 777.69s
+INFO :          History (loss, distributed):
+INFO :                  round 1: 1.554962158203125
+INFO :                  round 2: 1.2263801097869873
+INFO :                  round 3: 1.0633295774459839
+INFO :          History (metrics, distributed, evaluate):
+INFO :          {'accuracy': [(1, 50.26), (2, 57.12), (3, 61.89000000000001)]}
 ```
 
 ### 5.2. Client Output
@@ -189,6 +215,34 @@ and it will be continued by this
 INFO :
 INFO :      Received: get_parameters message de6f3cce-9d80-4007-bc9a-208077d43b42
 INFO :      Sent reply
+
+INFO :
+INFO :      Received: get_parameters message de6f3cce-9d80-4007-bc9a-208077d43b42
+INFO :      Sent reply
+INFO :
+INFO :      Received: train message 3373eed3-d237-4917-a2c0-e56731ed59b2
+INFO :      Sent reply
+INFO :
+INFO :      Received: evaluate message 948a41ab-bb20-44c4-9d91-ae33531649f1
+INFO :      Sent reply
+INFO :
+INFO :      Received: train message 7f8340f0-24c9-4663-abbf-93d43ed6fe9a
+INFO :      Sent reply
+INFO :
+INFO :      Received: evaluate message 8018dc79-b425-47ec-b954-96a59be67f85
+INFO :      Sent reply
+INFO :
+INFO :      Received: train message 740a9451-e68a-45b6-8762-9ba69190fd68
+INFO :      Sent reply
+INFO :
+INFO :      Received: evaluate message 61721979-aae7-42c0-a297-9fd9fd2f9168
+INFO :      Sent reply
+INFO :
+INFO :      Received: reconnect message 2eec9fd8-4d70-4eab-bf27-59b81551fc06
+INFO :      Disconnect and shut down
+ Client finished.
+Connected successfully!
+
 ```
 
 Outputs for clients `1` and `2` are similar, with unique subsets of training data.
