@@ -6,7 +6,16 @@ This project demonstrates a Federated Learning (FL) framework using the Flower (
 
 ## Table of Contents
 
-
+1. [Overview](#1-overview)  
+2. [Requirements and Installation](#2-requirements-and-installation)  
+3. [How to Execute the Program](#3-how-to-execute-the-program)  
+   - [Start the Server](#31-start-the-server)  
+   - [Start the Clients](#32-start-the-clients)  
+4. [Project Structure and Code Description](#4-project-structure-and-code-description)   
+5. [Expected Output (First Run)](#5-expected-output-first-run)  
+   - [Server Output](#51-server-output)  
+   - [Client Output](#52-client-output)  
+6. [Conclusion](#6-conclusion)  
 
 
 ---
