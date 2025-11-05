@@ -291,7 +291,7 @@ During the training process, performance metrics for each client (such as accura
 | Client_2793142066480 | 3 | 0.001 | 64 | Adam | 70.53 | 0.8437 |
 | Client_2082561957168 | 3 | 0.001 | 64 | Adam | 70.53 | 0.8437 |
 
-**🕒 Total Training Time:** `296.31 seconds`
+**🕒 Total Training Time:** `296.31 seconds` (**Hardware:** Intel Core i5 CPU)
 
 ---
 
