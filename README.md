@@ -2,7 +2,7 @@
 
 This project demonstrates a Federated Learning (FL) framework using the Flower (FLWR) library in combination with PyTorch for training on the CIFAR-10 dataset. The implementation simulates multiple clients collaboratively training a convolutional neural network (CNN) model without sharing their raw data, showcasing the fundamental concepts of privacy-preserving distributed learning.
 
-To learn more about the project you can see the [document](documents/test.txt).
+To see the summary of the project, you can see [document](documents/Summary.pdf).
 
 ---
 
