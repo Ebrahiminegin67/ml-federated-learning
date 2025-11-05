@@ -56,7 +56,7 @@ for epoch in range(epochs):
 
 save_path = "../runs/centralized_model.pth"
 torch.save(model.state_dict(), save_path)
-print(f"\n✅ Model saved to {save_path}")
+print(f"\nModel saved to {save_path}")
 
 plt.figure(figsize=(10,4))
 

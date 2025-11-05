@@ -1,11 +1,11 @@
 import matplotlib.pyplot as plt
 
-# --- Centralized results (from your centralized training logs) ---
+# --- Centralized results
 centralized_epochs = [1, 2, 3]
-centralized_acc = [54.65, 61.34, 64.28]  # from your centralized model output
+centralized_acc = [54.65, 61.34, 64.28]  # from centralized model output
 centralized_loss = [1.2671, 1.0792, 1.0090]
 
-# --- Federated results (from your server output) ---
+# --- Federated results
 federated_rounds = [1, 2, 3]
 federated_acc = [50.4, 59.27, 63.95]
 federated_loss = [1.6142, 1.1626, 1.0258]

@@ -12,9 +12,10 @@ import torch.nn as nn
 import torch.optim as optim
 import numpy as np
 import random
+import csv
 
 
-# ----- 1. Split CIFAR-10 dataset into subsets -----
+# ----- Split CIFAR-10 dataset into subsets -----
 def load_datasets(num_clients=3, client_id=0):
     print(f" Loading data for client {client_id}...")
     transform = transforms.Compose([
@@ -39,7 +40,12 @@ def load_datasets(num_clients=3, client_id=0):
     return train_loader, test_loader
 
 
-# ----- 2. Define Flower Client -----
+OPTIMIZER_TYPE = "Adam"  # Options: "Adam", "SGD"
+LEARNING_RATE = 0.001   
+LOCAL_EPOCHS = 3
+BATCH_SIZE = 64
+
+# ----- Define Client -----
 class CifarClient(fl.client.NumPyClient):
     def __init__(self, model, train_loader, test_loader, device):
         self.model = model
@@ -47,7 +53,10 @@ class CifarClient(fl.client.NumPyClient):
         self.test_loader = test_loader
         self.device = device
         self.criterion = nn.CrossEntropyLoss()
-        self.optimizer = optim.Adam(model.parameters(), lr=0.001)
+        if OPTIMIZER_TYPE == "Adam":
+            self.optimizer = optim.Adam(model.parameters(), lr=LEARNING_RATE)
+        elif OPTIMIZER_TYPE == "SGD":
+            self.optimizer = optim.SGD(model.parameters(), lr=LEARNING_RATE, momentum=0.9)
 
     def get_parameters(self, config):
         return [val.cpu().numpy() for val in self.model.state_dict().values()]
@@ -59,16 +68,22 @@ class CifarClient(fl.client.NumPyClient):
 
     def fit(self, parameters, config):
         self.set_parameters(parameters)
-        train_loss, train_acc = train(self.model, self.train_loader, self.criterion, self.optimizer, self.device)
+        for epoch in range(LOCAL_EPOCHS):
+            train_loss, train_acc = train(self.model, self.train_loader, self.criterion, self.optimizer, self.device)
+            print(f" Client training | Epoch {epoch+1}/{LOCAL_EPOCHS} | Loss: {train_loss:.4f} | Acc: {train_acc:.2f}%")
+
         return self.get_parameters(config={}), len(self.train_loader.dataset), {}
 
     def evaluate(self, parameters, config):
         self.set_parameters(parameters)
         test_loss, test_acc = test(self.model, self.test_loader, self.criterion, self.device)
+
+        log_results(f"Client_{id(self)}", test_acc, test_loss)
+
         return float(test_loss), len(self.test_loader.dataset), {"accuracy": float(test_acc)}
 
 
-# ----- 3. Start client -----
+
 def start_client(client_id, server_address="127.0.0.1:8081", num_clients=3):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model = SimpleCNN().to(device)
@@ -76,19 +91,31 @@ def start_client(client_id, server_address="127.0.0.1:8081", num_clients=3):
     train_loader, test_loader = load_datasets(num_clients, client_id)
     print(" Data loaded.")
     print(f" Train samples: {len(train_loader.dataset)}, Test samples: {len(test_loader.dataset)}")
-
     print(" Initializing client...")
     client = CifarClient(model, train_loader, test_loader, device)
     print(" Connecting to server...")
     fl.client.start_numpy_client(server_address=server_address, client=client)
     print(" Client finished.")
+
+
+def log_results(config_name, test_acc, test_loss):
+    os.makedirs("../runs/logs", exist_ok=True)
+    log_path = "../runs/logs/results_log.csv"
+
+    file_exists = os.path.isfile(log_path)
+    with open(log_path, mode="a", newline="") as file:
+        writer = csv.writer(file)
+        if not file_exists:
+            writer.writerow(["Config", "Local Epochs", "LR", "Batch Size", "Optimizer", "Test Acc", "Test Loss"])
+        writer.writerow([config_name, LOCAL_EPOCHS, LEARNING_RATE, BATCH_SIZE, OPTIMIZER_TYPE, test_acc, test_loss])
+
     
 if __name__ == "__main__":
     import sys
     if len(sys.argv) > 1:
         client_id = int(sys.argv[1])
     else:
-        client_id = 0  # default if no ID given
+        client_id = 0 
 
     print(f" Client starting with ID {client_id}...")
     try:
