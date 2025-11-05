@@ -16,8 +16,9 @@ To see the summary of the project, you can see [document](documents/Summary.pdf)
 4. [Project Structure and Code Description](#4-project-structure-and-code-description)   
 5. [Expected Output (First Run)](#5-expected-output-first-run)  
    - [Server Output](#51-server-output)  
-   - [Client Output](#52-client-output)  
-6. [Conclusion](#6-conclusion)  
+   - [Client Output](#52-client-output)
+6. [Training Logs and Results](#6-Training-Logs-and-Results) 
+7. [Conclusion](#7-conclusion)  
 
 
 ---
@@ -188,27 +189,29 @@ INFO :      aggregate_fit: received 3 results and 0 failures
 WARNING :   No fit_metrics_aggregation_fn provided
 INFO :      configure_evaluate: strategy sampled 3 clients (out of 3)
 INFO :      aggregate_evaluate: received 3 results and 0 failures
-INFO :
+INFO :      
 INFO :      [ROUND 2]
 INFO :      configure_fit: strategy sampled 3 clients (out of 3)
 INFO :      aggregate_fit: received 3 results and 0 failures
 INFO :      configure_evaluate: strategy sampled 3 clients (out of 3)
 INFO :      aggregate_evaluate: received 3 results and 0 failures
-INFO :
+INFO :      
 INFO :      [ROUND 3]
 INFO :      configure_fit: strategy sampled 3 clients (out of 3)
 INFO :      aggregate_fit: received 3 results and 0 failures
 INFO :      configure_evaluate: strategy sampled 3 clients (out of 3)
 INFO :      aggregate_evaluate: received 3 results and 0 failures
-INFO :
+INFO :      
 INFO :      [SUMMARY]
-INFO :      Run finished 3 round(s) in 777.69s
+INFO :      Run finished 3 round(s) in 796.07s
 INFO :          History (loss, distributed):
-INFO :                  round 1: 1.554962158203125
-INFO :                  round 2: 1.2263801097869873
-INFO :                  round 3: 1.0633295774459839
+INFO :                  round 1: 1.4669830799102783
+INFO :                  round 2: 0.9555338025093079
+INFO :                  round 3: 0.8496827483177185
 INFO :          History (metrics, distributed, evaluate):
-INFO :          {'accuracy': [(1, 50.26), (2, 57.12), (3, 61.89000000000001)]}
+INFO :          {'accuracy': [(1, 54.87), (2, 66.64), (3, 71.36)]}
+INFO :
+Total training time: 296.89 seconds
 ```
 
 ### 5.2. Client Output
@@ -231,43 +234,68 @@ and it will be continued by this
  #### some deprication warning
  
 INFO :
-INFO :      Received: get_parameters message de6f3cce-9d80-4007-bc9a-208077d43b42
+INFO :      Received: train message f3d27e62-e0e1-4ec7-bf55-c58018926116
+ Client training | Epoch 1/3 | Loss: 1.6975 | Acc: 38.13%
+ Client training | Epoch 2/3 | Loss: 1.3632 | Acc: 50.95%                                                                       
+ Client training | Epoch 3/3 | Loss: 1.2109 | Acc: 56.34%                                                                       
 INFO :      Sent reply
-
-INFO :
-INFO :      Received: get_parameters message de6f3cce-9d80-4007-bc9a-208077d43b42
+INFO :      
+INFO :      Received: evaluate message 24f392d0-1968-4ad4-b56e-47318c18d239
 INFO :      Sent reply
-INFO :
-INFO :      Received: train message 3373eed3-d237-4917-a2c0-e56731ed59b2
+INFO :      
+INFO :      Received: train message f0590a3a-ceb1-4fe5-add9-e821343daa76
+ Client training | Epoch 1/3 | Loss: 1.1963 | Acc: 57.02%
+ Client training | Epoch 2/3 | Loss: 1.0393 | Acc: 62.43%
+ Client training | Epoch 3/3 | Loss: 0.9119 | Acc: 67.41%                                                                       
 INFO :      Sent reply
-INFO :
-INFO :      Received: evaluate message 948a41ab-bb20-44c4-9d91-ae33531649f1
+INFO :      
+INFO :      Received: evaluate message c4d2c399-bd71-4834-8a66-9e7c572510d1
 INFO :      Sent reply
-INFO :
-INFO :      Received: train message 7f8340f0-24c9-4663-abbf-93d43ed6fe9a
+INFO :      
+INFO :      Received: train message b121358d-f60b-4c3d-8119-fca846a55b1f
+ Client training | Epoch 1/3 | Loss: 0.9094 | Acc: 67.95%
+ Client training | Epoch 2/3 | Loss: 0.8072 | Acc: 71.02%
+ Client training | Epoch 3/3 | Loss: 0.6923 | Acc: 75.33%
 INFO :      Sent reply
-INFO :
-INFO :      Received: evaluate message 8018dc79-b425-47ec-b954-96a59be67f85
+INFO :      
+INFO :      Received: evaluate message 8829ceab-e0a5-4b84-ab3e-b934770190f1
 INFO :      Sent reply
-INFO :
-INFO :      Received: train message 740a9451-e68a-45b6-8762-9ba69190fd68
-INFO :      Sent reply
-INFO :
-INFO :      Received: evaluate message 61721979-aae7-42c0-a297-9fd9fd2f9168
-INFO :      Sent reply
-INFO :
-INFO :      Received: reconnect message 2eec9fd8-4d70-4eab-bf27-59b81551fc06
+INFO :      
+INFO :      Received: reconnect message e9a383d9-daae-4dc9-a758-b57988c95652
 INFO :      Disconnect and shut down
  Client finished.
-Connected successfully!
-
+Connected successfully.
 ```
 
 Outputs for clients `1` and `2` are similar, with unique subsets of training data.
 
 ---
 
-## 6. Conclusion
+## 6. Training Logs and Results
+
+During the training process, performance metrics for each client (such as accuracy and loss per round) are automatically saved in a CSV file for further analysis.
+
+**File Location: runs/results_log.csv**  
+
+### Example Log Output
+
+| Client ID | Rounds | Learning Rate | Batch Size | Optimizer | Accuracy (%) | Loss |
+|------------|---------|---------------|-------------|------------|---------------|------|
+| Client_2082561957168 | 3 | 0.001 | 64 | Adam | 57.11 | 1.4666 |
+| Client_2793142066480 | 3 | 0.001 | 64 | Adam | 57.11 | 1.4666 |
+| Client_1340645416240 | 3 | 0.001 | 64 | Adam | 57.11 | 1.4666 |
+| Client_2793142066480 | 3 | 0.001 | 64 | Adam | 66.38 | 0.9489 |
+| Client_1340645416240 | 3 | 0.001 | 64 | Adam | 66.38 | 0.9489 |
+| Client_2082561957168 | 3 | 0.001 | 64 | Adam | 66.38 | 0.9489 |
+| Client_1340645416240 | 3 | 0.001 | 64 | Adam | 70.53 | 0.8437 |
+| Client_2793142066480 | 3 | 0.001 | 64 | Adam | 70.53 | 0.8437 |
+| Client_2082561957168 | 3 | 0.001 | 64 | Adam | 70.53 | 0.8437 |
+
+**🕒 Total Training Time:** `296.31 seconds`
+
+---
+
+## 7. Conclusion
 
 This implementation demonstrates the core principles of Federated Learning using the Flower framework. By distributing model training across multiple clients, it preserves data privacy while collaboratively improving model performance. The experiment provides a foundational understanding of how decentralized machine learning systems can be implemented and tested locally.
 
